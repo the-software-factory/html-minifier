@@ -27,38 +27,39 @@ How does HTMLMinifier compare to [another solution](http://www.willpeavy.com/min
 
 ## Options Quick Reference
 
-| Option                         | Description     | Default |
-|--------------------------------|-----------------|---------|
-| `removeComments`               | [Strip HTML comments](http://perfectionkills.com/experimenting-with-html-minifier/#remove_comments) | `false` |
-| `removeCommentsFromCDATA`      | [Strip HTML comments from scripts and styles](http://perfectionkills.com/experimenting-with-html-minifier/#remove_comments_from_scripts_and_styles) | `false` |
-| `removeCDATASectionsFromCDATA` | [Remove CDATA sections from script and style elements](http://perfectionkills.com/experimenting-with-html-minifier/#remove_cdata_sections) | `false` |
-| `collapseWhitespace`           | [Collapse white space that contributes to text nodes in a document tree.](http://perfectionkills.com/experimenting-with-html-minifier/#collapse_whitespace) | `false` |
-| `conservativeCollapse`         | Always collapse to 1 space (never remove it entirely). Must be used in conjunction with `collapseWhitespace=true` | `false` |
-| `preserveLineBreaks`           | Always collapse to 1 line break (never remove it entirely) when whitespace between tags include a line break. Must be used in conjunction with `collapseWhitespace=true` | `false` |
-| `collapseBooleanAttributes`    | [Omit attribute values from boolean attributes](http://perfectionkills.com/experimenting-with-html-minifier/#collapse_boolean_attributes) | `false` |
-| `removeAttributeQuotes`        | [Remove quotes around attributes when possible.](http://perfectionkills.com/experimenting-with-html-minifier/#remove_attribute_quotes) | `false` |
-| `removeRedundantAttributes`    | [Remove attributes when value matches default.](http://perfectionkills.com/experimenting-with-html-minifier/#remove_redundant_attributes) | `false` |
-| `preventAttributesEscaping`    | Prevents the escaping of the values of attributes. | `false` |
-| `useShortDoctype`              | [Replaces the doctype with the short (HTML5) doctype](http://perfectionkills.com/experimenting-with-html-minifier/#use_short_doctype) | `false` |
-| `removeEmptyAttributes`        | [Remove all attributes with whitespace-only values](http://perfectionkills.com/experimenting-with-html-minifier/#remove_empty_or_blank_attributes) | `false` |
-| `removeScriptTypeAttributes`   | Remove `type="text/javascript"` from `script` tags. Other `type` attribute values are left intact. | `false` |
-| `removeStyleLinkTypeAttributes`| Remove `type="text/css"` from `style` and `link` tags. Other `type` attribute values are left intact. | `false` |
-| `removeOptionalTags`           | [Remove unrequired tags](http://perfectionkills.com/experimenting-with-html-minifier/#remove_optional_tags) | `false` |
-| `removeIgnored`                | Remove all tags starting and ending with `<%`, `%>`, `<?`, `?>` | `false` |
-| `removeEmptyElements`          | [Remove all elements with empty contents](http://perfectionkills.com/experimenting-with-html-minifier/#remove_empty_elements) | `false` |
-| `lint`                         | [Toggle linting](http://perfectionkills.com/experimenting-with-html-minifier/#validate_input_through_html_lint) | `false` |
-| `keepClosingSlash`             | Keep the trailing slash on singleton elements                            | `false` |
-| `caseSensitive`                | Treat attributes in case sensitive manner (useful for custom HTML tags.) | `false` |
-| `minifyJS`                     | Minify Javascript in script elements and on* attributes (uses [UglifyJS](https://github.com/mishoo/UglifyJS2)) | `false` (could be `true`, `false`, `Object` (options)) |
-| `minifyCSS`                    | Minify CSS in style elements and style attributes (uses [clean-css](https://github.com/GoalSmashers/clean-css)) | `false` (could be `true`, `false`, `Object` (options)) |
-| `minifyURLs`                   | Minify URLs in various attributes (uses [relateurl](https://github.com/stevenvachon/relateurl)) | `false` (could be `Object` (options)) |
-| `ignoreCustomComments`         | Array of regex'es that allow to ignore certain comments, when matched  | `[ ]` |
-| `processScripts`               | Array of strings corresponding to types of script elements to process through minifier (e.g. `text/ng-template`, `text/x-handlebars-template`, etc.) | `[ ]` |
-| `maxLineLength`                | Specify a maximum line length. Compressed output will be split by newlines at valid HTML split-points. |
-| `customAttrAssign`             | Arrays of regex'es that allow to support custom attribute assign expressions (e.g. `'<div flex?="{{mode != cover}}"></div>'`) | `[ ]` |
-| `customAttrSurround`           | Arrays of regex'es that allow to support custom attribute surround expressions (e.g. `<input {{#if value}}checked="checked"{{/if}}>`) | `[ ]` |
-| `customAttrCollapse`           | Regex that specifies custom attribute to strip newlines from (e.g. `/ng\-class/`) | |
-| `quoteCharacter`               | Type of quote to use for attribute values (' or ") | " |
+| Option                             | Description     | Default |
+|------------------------------------|-----------------|---------|
+| `removeComments`                   | [Strip HTML comments](http://perfectionkills.com/experimenting-with-html-minifier/#remove_comments) | `false` |
+| `removeCommentsFromCDATA`          | [Strip HTML comments from scripts and styles](http://perfectionkills.com/experimenting-with-html-minifier/#remove_comments_from_scripts_and_styles) | `false` |
+| `removeCDATASectionsFromCDATA`     | [Remove CDATA sections from script and style elements](http://perfectionkills.com/experimenting-with-html-minifier/#remove_cdata_sections) | `false` |
+| `collapseWhitespace`               | [Collapse white space that contributes to text nodes in a document tree.](http://perfectionkills.com/experimenting-with-html-minifier/#collapse_whitespace) | `false` |
+| `conservativeCollapse`             | Always collapse to 1 space (never remove it entirely). Must be used in conjunction with `collapseWhitespace=true` | `false` |
+| `preserveLineBreaks`               | Always collapse to 1 line break (never remove it entirely) when whitespace between tags include a line break. Must be used in conjunction with `collapseWhitespace=true` | `false` |
+| `tagsMaintainingWhitespaceOutside` | Custom list of tags that should maintain a whitespace outside them. Must be used in conjunction with `collapseWhitespace=true` | See the source code of the collapseWhitespaceSmart() |
+| `collapseBooleanAttributes`        | [Omit attribute values from boolean attributes](http://perfectionkills.com/experimenting-with-html-minifier/#collapse_boolean_attributes) | `false` |
+| `removeAttributeQuotes`            | [Remove quotes around attributes when possible.](http://perfectionkills.com/experimenting-with-html-minifier/#remove_attribute_quotes) | `false` |
+| `removeRedundantAttributes`        | [Remove attributes when value matches default.](http://perfectionkills.com/experimenting-with-html-minifier/#remove_redundant_attributes) | `false` |
+| `preventAttributesEscaping`        | Prevents the escaping of the values of attributes. | `false` |
+| `useShortDoctype`                  | [Replaces the doctype with the short (HTML5) doctype](http://perfectionkills.com/experimenting-with-html-minifier/#use_short_doctype) | `false` |
+| `removeEmptyAttributes`            | [Remove all attributes with whitespace-only values](http://perfectionkills.com/experimenting-with-html-minifier/#remove_empty_or_blank_attributes) | `false` |
+| `removeScriptTypeAttributes`       | Remove `type="text/javascript"` from `script` tags. Other `type` attribute values are left intact. | `false` |
+| `removeStyleLinkTypeAttributes`    | Remove `type="text/css"` from `style` and `link` tags. Other `type` attribute values are left intact. | `false` |
+| `removeOptionalTags`               | [Remove unrequired tags](http://perfectionkills.com/experimenting-with-html-minifier/#remove_optional_tags) | `false` |
+| `removeIgnored`                    | Remove all tags starting and ending with `<%`, `%>`, `<?`, `?>` | `false` |
+| `removeEmptyElements`              | [Remove all elements with empty contents](http://perfectionkills.com/experimenting-with-html-minifier/#remove_empty_elements) | `false` |
+| `lint`                             | [Toggle linting](http://perfectionkills.com/experimenting-with-html-minifier/#validate_input_through_html_lint) | `false` |
+| `keepClosingSlash`                 | Keep the trailing slash on singleton elements                            | `false` |
+| `caseSensitive`                    | Treat attributes in case sensitive manner (useful for custom HTML tags.) | `false` |
+| `minifyJS`                         | Minify Javascript in script elements and on* attributes (uses [UglifyJS](https://github.com/mishoo/UglifyJS2)) | `false` (could be `true`, `false`, `Object` (options)) |
+| `minifyCSS`                        | Minify CSS in style elements and style attributes (uses [clean-css](https://github.com/GoalSmashers/clean-css)) | `false` (could be `true`, `false`, `Object` (options)) |
+| `minifyURLs`                       | Minify URLs in various attributes (uses [relateurl](https://github.com/stevenvachon/relateurl)) | `false` (could be `Object` (options)) |
+| `ignoreCustomComments`             | Array of regex'es that allow to ignore certain comments, when matched  | `[ ]` |
+| `processScripts`                   | Array of strings corresponding to types of script elements to process through minifier (e.g. `text/ng-template`, `text/x-handlebars-template`, etc.) | `[ ]` |
+| `maxLineLength`                    | Specify a maximum line length. Compressed output will be split by newlines at valid HTML split-points. |
+| `customAttrAssign`                 | Arrays of regex'es that allow to support custom attribute assign expressions (e.g. `'<div flex?="{{mode != cover}}"></div>'`) | `[ ]` |
+| `customAttrSurround`               | Arrays of regex'es that allow to support custom attribute surround expressions (e.g. `<input {{#if value}}checked="checked"{{/if}}>`) | `[ ]` |
+| `customAttrCollapse`               | Regex that specifies custom attribute to strip newlines from (e.g. `/ng\-class/`) | |
+| `quoteCharacter`                   | Type of quote to use for attribute values (' or ") | " |
 
 ## Special cases
 
@@ -72,7 +73,7 @@ SVG tags are automatically recognized, and when they are minified, both case-sen
 
 ### Working with invalid markup
 
-HTMLMinifier **can't work with invalid or partial chunks of markup**. This is because it parses markup into a tree structure, then modifies it (removing anything that was specified for removal, ignoring anything that was specified to be ingored, etc.), then it creates a markup out of that tree and returns it. 
+HTMLMinifier **can't work with invalid or partial chunks of markup**. This is because it parses markup into a tree structure, then modifies it (removing anything that was specified for removal, ignoring anything that was specified to be ingored, etc.), then it creates a markup out of that tree and returns it.
 
 Input markup (e.g. `<p id="">foo`)
 

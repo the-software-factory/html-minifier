@@ -92,6 +92,12 @@
   });
 
   test('space normalization around text', function() {
+    // options that force to remove spaces around tags
+    var options = {
+      collapseWhitespace: true,
+      tagsMaintainingWhitespaceOutside: []
+    };
+
     equal(minify('   <p>blah</p>\n\n\n   '), '<p>blah</p>');
     // tags from collapseWhitespaceSmart()
     ['a', 'b', 'big', 'button', 'code', 'em', 'font', 'i', 'kbd', 'mark', 'q', 's', 'small', 'span', 'strike', 'strong', 'sub', 'sup', 'svg', 'time', 'tt', 'u'].forEach(function(el) {
@@ -103,11 +109,28 @@
       equal(minify('<p>foo<' + el + '> baz </' + el + '>bar</p>', { collapseWhitespace: true }), '<p>foo<' + el + '>baz</' + el + '>bar</p>');
       equal(minify('<p>foo <' + el + '> baz </' + el + '>bar</p>', { collapseWhitespace: true }), '<p>foo <' + el + '>baz</' + el + '>bar</p>');
       equal(minify('<p>foo<' + el + '> baz </' + el + '> bar</p>', { collapseWhitespace: true }), '<p>foo<' + el + '>baz</' + el + '> bar</p>');
+
+      // should remove spaces instead of normalizing them if the tagsMaintainingWhitespaceOutside option is specified and doesn't contain the tags
+      equal(minify('<p>foo <' + el + '>baz</' + el + '> bar</p>', options), '<p>foo<' + el + '>baz</' + el + '>bar</p>');
+      equal(minify('<p>foo<' + el + '>baz</' + el + '>bar</p>', options), '<p>foo<' + el + '>baz</' + el + '>bar</p>');
+      equal(minify('<p>foo <' + el + '>baz</' + el + '>bar</p>', options), '<p>foo<' + el + '>baz</' + el + '>bar</p>');
+      equal(minify('<p>foo<' + el + '>baz</' + el + '> bar</p>', options), '<p>foo<' + el + '>baz</' + el + '>bar</p>');
+      equal(minify('<p>foo <' + el + '> baz </' + el + '> bar</p>', options), '<p>foo<' + el + '>baz</' + el + '>bar</p>');
+      equal(minify('<p>foo<' + el + '> baz </' + el + '>bar</p>', options), '<p>foo<' + el + '>baz</' + el + '>bar</p>');
+      equal(minify('<p>foo <' + el + '> baz </' + el + '>bar</p>', options), '<p>foo<' + el + '>baz</' + el + '>bar</p>');
+      equal(minify('<p>foo<' + el + '> baz </' + el + '> bar</p>', options), '<p>foo<' + el + '>baz</' + el + '>bar</p>');
     });
+
     equal(minify('<p>foo <img> bar</p>', { collapseWhitespace: true }), '<p>foo <img> bar</p>');
     equal(minify('<p>foo<img>bar</p>', { collapseWhitespace: true }), '<p>foo<img>bar</p>');
     equal(minify('<p>foo <img>bar</p>', { collapseWhitespace: true }), '<p>foo <img>bar</p>');
     equal(minify('<p>foo<img> bar</p>', { collapseWhitespace: true }), '<p>foo<img> bar</p>');
+
+    // should leave spaces outside img tag even if tagsMaintainingWhitespaceOutside doesn't contain it
+    equal(minify('<p>foo <img> bar</p>', options), '<p>foo <img> bar</p>');
+    equal(minify('<p>foo<img>bar</p>', options), '<p>foo<img>bar</p>');
+    equal(minify('<p>foo <img>bar</p>', options), '<p>foo <img>bar</p>');
+    equal(minify('<p>foo<img> bar</p>', options), '<p>foo<img> bar</p>');
   });
 
   test('doctype normalization', function() {
@@ -600,6 +623,10 @@
     input = '<p> foo    <span>  blah     <i>   22</i>    </span> bar <img src=""></p>';
     output = '<p>foo <span>blah <i>22</i></span> bar <img src=""></p>';
     equal(minify(input, { collapseWhitespace: true }), output);
+
+    input = '<p> foo    <a href="#"><span>  blah     <i>   22</i>    </span></a> bar <img src=""></p>';
+    output = '<p>foo<a href="#"><span>blah<i>22</i></span></a>bar <img src=""></p>';
+    equal(minify(input, { collapseWhitespace: true, tagsMaintainingWhitespaceOutside: [] }), output);
 
     input = '<textarea> foo bar     baz \n\n   x \t    y </textarea>';
     output = '<textarea> foo bar     baz \n\n   x \t    y </textarea>';

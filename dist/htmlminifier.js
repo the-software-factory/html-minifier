@@ -609,7 +609,7 @@
   function collapseWhitespaceSmart(str, prevTag, nextTag, options) {
 
     // array of non-empty element tags that will maintain a single space outside of them
-    var tags = [
+    var tags = options.tagsMaintainingWhitespaceOutside ? options.tagsMaintainingWhitespaceOutside : [
       'a', 'abbr', 'acronym', 'b', 'bdi', 'bdo', 'big', 'button', 'cite',
       'code', 'del', 'dfn', 'em', 'font', 'i', 'ins', 'kbd', 'mark', 'q',
       'rt', 'rp', 's', 'samp', 'small', 'span', 'strike', 'strong',
