@@ -7,7 +7,6 @@
     "minifier",
     "lint"
   ],
-  "homepage": "http://kangax.github.io/html-minifier/",
   "author": "Juriy \"kangax\" Zaytsev",
   "maintainers": [
     "Juriy Zaytsev <kangax@gmail.com> (http://perfectionkills.com)"
@@ -18,17 +17,7 @@
     "Zoltan Frombach <tssajo@gmail.com>"
   ],
   "license": "MIT",
-  "bin": {
-    "html-minifier": "./cli.js"
-  },
   "main": "src/htmlminifier.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/the-software-factory/html-minifier.git"
-  },
-  "bugs": {
-    "url": "https://github.com/the-software-factory/html-minifier/issues"
-  },
   "engines": {
     "node": ">=0.10.0"
   },
